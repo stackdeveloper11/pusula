@@ -143,6 +143,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\FilteredCountry.cs" />
+    <Compile Include="Models\NumberedFilteredCountry.cs" />
+    <Compile Include="Models\PagerFilteredCountry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
