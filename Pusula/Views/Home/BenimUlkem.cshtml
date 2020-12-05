@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = Html.Raw("Benim Ülkem");
+}
+
+<h3 class="text-center">Ülkem: <span id="clientBaseCountryInfo"></span></h3>
+<h3 class="text-center">Konuşulan Diller: <span id="SpeakingLanguages"></span></h3>
+@section Scripts{
+<script>
+    $(document).ready(function () {
+        ClientBaseMyCountry();
+    })
+</script>
+}
