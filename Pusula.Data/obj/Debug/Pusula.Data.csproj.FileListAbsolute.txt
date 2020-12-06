@@ -1,6 +1,12 @@
+C:\Users\stack\source\repos\Pusula\Pusula.Data\bin\Debug\Pusula.Data.dll.config
 C:\Users\stack\source\repos\Pusula\Pusula.Data\bin\Debug\Pusula.Data.dll
 C:\Users\stack\source\repos\Pusula\Pusula.Data\bin\Debug\Pusula.Data.pdb
+C:\Users\stack\source\repos\Pusula\Pusula.Data\bin\Debug\EntityFramework.dll
+C:\Users\stack\source\repos\Pusula\Pusula.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\stack\source\repos\Pusula\Pusula.Data\bin\Debug\EntityFramework.xml
+C:\Users\stack\source\repos\Pusula\Pusula.Data\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\stack\source\repos\Pusula\Pusula.Data\obj\Debug\Pusula.Data.csprojAssemblyReference.cache
 C:\Users\stack\source\repos\Pusula\Pusula.Data\obj\Debug\Pusula.Data.csproj.CoreCompileInputs.cache
+C:\Users\stack\source\repos\Pusula\Pusula.Data\obj\Debug\Pusula.Data.csproj.CopyComplete
 C:\Users\stack\source\repos\Pusula\Pusula.Data\obj\Debug\Pusula.Data.dll
 C:\Users\stack\source\repos\Pusula\Pusula.Data\obj\Debug\Pusula.Data.pdb

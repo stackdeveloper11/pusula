@@ -1,5 +1,8 @@
+using Pusula.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -13,6 +16,12 @@ namespace Pusula
     {
         protected void Application_Start()
         {
+
+            Database.SetInitializer<PusulaDB>(new MigrateDatabaseToLatestVersion<PusulaDB, Pusula.Data.Migrations.Configuration>());
+            var dbMigrator = new DbMigrator(new Data.Migrations.Configuration());
+            dbMigrator.Update();
+
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

@@ -86,3 +86,12 @@ C:\Users\stack\source\repos\Pusula\Pusula\obj\Debug\Pusula.pdb
 C:\Users\stack\source\repos\Pusula\Pusula\bin\JWT.dll
 C:\Users\stack\source\repos\Pusula\Pusula\bin\JWT.pdb
 C:\Users\stack\source\repos\Pusula\Pusula\bin\JWT.xml
+C:\Users\stack\source\repos\Pusula\Pusula\bin\EntityFramework.dll
+C:\Users\stack\source\repos\Pusula\Pusula\bin\EntityFramework.SqlServer.dll
+C:\Users\stack\source\repos\Pusula\Pusula\bin\Pusula.Data.dll
+C:\Users\stack\source\repos\Pusula\Pusula\bin\Pusula.Data.pdb
+C:\Users\stack\source\repos\Pusula\Pusula\bin\Pusula.Data.dll.config
+C:\Users\stack\source\repos\Pusula\Pusula\bin\EntityFramework.xml
+C:\Users\stack\source\repos\Pusula\Pusula\bin\EntityFramework.SqlServer.xml
+C:\Users\stack\source\repos\Pusula\Pusula\bin\Pusula.Helper.dll
+C:\Users\stack\source\repos\Pusula\Pusula\bin\Pusula.Helper.pdb

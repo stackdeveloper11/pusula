@@ -14,9 +14,10 @@ namespace Pusula.Controllers
 {
     public class SorguController : ApiController
     {
+        Data.PusulaDB db = new Data.PusulaDB();
         // GET api/<controller>/5
         [HttpGet]
-        public HttpResponseMessage Countries(string searchText="",int take=10,int page=1)
+        public HttpResponseMessage Countries(string searchText = "", int take = 10, int page = 1)
         {
             HttpWebRequest httpWebRequest = System.Net.WebRequest.Create("https://restcountries.eu/rest/v2/all?fields=name;languages") as HttpWebRequest;
             using (HttpWebResponse httpWebResponse = httpWebRequest.GetResponse() as HttpWebResponse)
@@ -38,7 +39,7 @@ namespace Pusula.Controllers
                     NumberedFilteredCountry Nfc = new NumberedFilteredCountry();
                     Nfc.Id = id;
                     Nfc.Name = item.name;
-                    Nfc.Languages = string.Join(",", item.languages.Select(a=>a.name).ToArray());
+                    Nfc.Languages = string.Join(",", item.languages.Select(a => a.name).ToArray());
                     NfcList.Add(Nfc);
                 }
                 if (result == null)
@@ -48,9 +49,9 @@ namespace Pusula.Controllers
                 else
                 {
                     int sNum = 0;
-                    if (result.Length>=(page-1)*take)
+                    if (result.Length >= (page - 1) * take)
                     {
-                        sNum = (page-1) * take;
+                        sNum = (page - 1) * take;
                     }
                     else
                     {
@@ -62,8 +63,47 @@ namespace Pusula.Controllers
                 }
             }
         }
+        [HttpGet]
+        public HttpResponseMessage Slot(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, " Geçersiz istek.");
+            }
+            else
+            {
+                var user = db.Users.Where(a => a.Token == token).FirstOrDefault();
+                int gold = user.Gold - 1;
+                user.Gold = gold;
+                db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
 
+                string[] FirstList = { "kiraz", "limon", "elma", "limon", "muz", "muz", "limon", "limon" };
+                string[] SecondList = { "limon", "elma", "limon", "pass", "kiraz", "elma", "muz", "limon" };
+                string[] ThirdList = { "pass", "elma", "limon", "elma", "kiraz", "limon", "muz", "limon" };
 
+                int fl = FirstList.Count();
+                int sl = SecondList.Count();
+                int tl = ThirdList.Count();
+
+                int FirstResult = new Random().Next(0, fl);
+                int SecondResult = new Random().Next(0, sl);
+                int ThirdResult = new Random().Next(0, tl);
+              
+                string arr = FirstList[FirstResult] + "-" + SecondList[SecondResult] + "-" + ThirdList[ThirdResult];
+                int prize = Helper.General.prize(arr);
+                user.Gold = user.Gold + prize;
+                db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                Result rst = new Result();
+                rst.Arr = arr;
+                rst.Prize = prize.ToString();
+                rst.Gold = user.Gold.ToString();
+
+                return Request.CreateResponse<Result>(HttpStatusCode.OK,rst);
+            }
+        }
         [HttpGet]
         public HttpResponseMessage Language(string searchText = "")
         {
@@ -87,9 +127,9 @@ namespace Pusula.Controllers
                 else
                 {
 
-                    string[] langs = result.Where(a => a.name.ToLower() == searchText.ToLower()).FirstOrDefault().languages.Select(a=>a.name).ToArray();
+                    string[] langs = result.Where(a => a.name.ToLower() == searchText.ToLower()).FirstOrDefault().languages.Select(a => a.name).ToArray();
 
-                    return Request.CreateResponse<string>(HttpStatusCode.OK, string.Join(",",langs));
+                    return Request.CreateResponse<string>(HttpStatusCode.OK, string.Join(",", langs));
                 }
             }
         }

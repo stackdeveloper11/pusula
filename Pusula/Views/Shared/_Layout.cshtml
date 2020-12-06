@@ -28,13 +28,14 @@
     </div>
     <div class="container body-content">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-12" style="margin-top:50px">
                 @RenderBody()
             </div>
         </div>
         <hr />
     </div>
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/site")
     @RenderSection("scripts", required: false)

@@ -5,18 +5,18 @@
         type: "GET",
         success: function (data) {
             $("#clientBaseCountryInfo").html(data.country);
-            SpeakingLanguages(data.country,"SpeakingLanguages");
+            SpeakingLanguages(data.country, "SpeakingLanguages");
         },
         error: function () {
             $("#clientBaseCountryInfo").html("Turkey");
-            SpeakingLanguages("Turkey","SpeakingLanguages");
+            SpeakingLanguages("Turkey", "SpeakingLanguages");
         }
     })
 }
 
-function SpeakingLanguages(country,element) {
+function SpeakingLanguages(country, element) {
     $.ajax({
-        url: '/api/Sorgu/Language?searchText='+country,
+        url: '/api/Sorgu/Language?searchText=' + country,
         dataType: 'json',
         type: "GET",
         success: function (data) {
@@ -47,25 +47,26 @@ function getUrlParameter(sParam) {
         }
     }
 };
-function FillCountries(page,take) {
+
+function FillCountries(page, take) {
     $.ajax({
-        url: '/api/Sorgu/Countries?page='+page+"&take="+take,
+        url: '/api/Sorgu/Countries?page=' + page + "&take=" + take,
         dataType: 'json',
         type: "GET",
         success: function (data) {
-            var tmpl = $.templates("#Template"); // Get compiled template
-            var html = tmpl.render(data.NumberedFilteredCountry);      // Render template using data - as HTML string
-            $("#result").html(html);           // Insert HTML string into DOM 
+            var tmpl = $.templates("#Template"); 
+            var html = tmpl.render(data.NumberedFilteredCountry);      
+            $("#result").html(html);        
             var pages = "";
             var getUrl = window.location;
             var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-            var url = baseUrl + "?id="; 
+            var url = baseUrl + "?id=";
             if (getUrlParameter("id") > 1 && getUrlParameter("id") != null) {
-                    pages += '<li class="page-item"><a class="page-link" href="' + url + (getUrlParameter("id")-1) + '">' + "<<" + '</a></li>';
+                pages += '<li class="page-item"><a class="page-link" href="' + url + (getUrlParameter("id") - 1) + '">' + "<<" + '</a></li>';
             }
             for (var i = 0; i < data.TotalPage; i++) {
                 var pgs = i + 1;
-                pages += '<li class="page-item"><a class="page-link" href="'+url+pgs+'">'+pgs+'</a></li>';
+                pages += '<li class="page-item"><a class="page-link" href="' + url + pgs + '">' + pgs + '</a></li>';
             }
             if (getUrlParameter("id") < data.TotalPage && getUrlParameter("id") != null) {
                 pages += '<li class="page-item"><a class="page-link" href="' + url + (parseInt(getUrlParameter("id")) + 1) + '">' + ">>" + '</a></li>';
@@ -76,8 +77,37 @@ function FillCountries(page,take) {
             $("#pages").html(pages);
         },
         error: function () {
-         
+
         }
     })
 }
 
+function Slot(token) {
+    if ($(".alt").html() != "0") {
+        $.ajax({
+            url: '/api/Sorgu/Slot?token=' + token,
+            dataType: 'json',
+            type: "GET",
+            beforeSend: function () {
+                $("#spnBtn").html("Lütfen Bekleyiniz");
+            },
+            success: function (data) {
+                $(".imm li").css("background", "white");
+                var first = data.Arr.split("-")[0] + ".jpg";
+                var second = data.Arr.split("-")[1] + ".jpg";
+                var third = data.Arr.split("-")[2] + ".jpg";
+                $("#firstImg").attr("src", "/img/" + first);
+                $("#secondImg").attr("src", "/img/" + second);
+                $("#thirdImg").attr("src", "/img/" + third);
+                $(".alt").html(data.Gold);
+                $("#result").html("Durum: " + data.Prize + " altın kazandın.");
+                $("#spnBtn").html("Spin");
+            },
+            error: function () {
+            }
+        })
+    }
+    else {
+        $('.modal').modal('toggle');
+    }
+}

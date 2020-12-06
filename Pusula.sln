@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pusula", "Pusula\Pusula.csproj", "{35ECDC2F-7C57-4EF3-8AE6-82DC60FBD90A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pusula.Data", "Pusula.Data\Pusula.Data.csproj", "{A6A0E7BB-E41B-4575-8380-B6EA99ED3ECA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pusula.Helper", "Pusula.Helper\Pusula.Helper.csproj", "{9363192D-9FAC-4F8C-99A7-31BF95B00260}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{35ECDC2F-7C57-4EF3-8AE6-82DC60FBD90A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35ECDC2F-7C57-4EF3-8AE6-82DC60FBD90A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35ECDC2F-7C57-4EF3-8AE6-82DC60FBD90A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6A0E7BB-E41B-4575-8380-B6EA99ED3ECA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6A0E7BB-E41B-4575-8380-B6EA99ED3ECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6A0E7BB-E41B-4575-8380-B6EA99ED3ECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6A0E7BB-E41B-4575-8380-B6EA99ED3ECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9363192D-9FAC-4F8C-99A7-31BF95B00260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9363192D-9FAC-4F8C-99A7-31BF95B00260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9363192D-9FAC-4F8C-99A7-31BF95B00260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9363192D-9FAC-4F8C-99A7-31BF95B00260}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

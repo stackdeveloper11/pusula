@@ -1,6 +1,157 @@
-﻿
+﻿@model Pusula.ViewModel.MemberhipViewModel
 @{
     ViewBag.Title = Html.Raw("Üyelik");
-}
-<h3 class="text-center">ÜYELİK</h3>
+    bool authUser = false;
+    string token = "";
+    if (Request.Cookies["token"] != null)
+    {
+        token = Request.Cookies["token"].Value;
+        if (Pusula.Data.PusulaDB.Create().Users.Where(a=>a.Token == token).FirstOrDefault() != null)
+        {
+            authUser = true;
 
+        }
+        else
+        {
+            Response.Cookies["token"].Expires = DateTime.Now.AddDays(-1);
+        }
+
+    }
+}
+<div class="row">
+    <div class="col-xs-12">
+        <ul class="nav nav-tabs">
+            @if (authUser == false)
+            {
+                <li class="active"><a data-toggle="tab" href="#login">Giriş Yap</a></li>
+                <li><a data-toggle="tab" href="#register">Kayıt Ol</a></li>
+            }
+            else
+            {
+                <li class="active"><a data-toggle="tab" href="#slot">Slot Makinesi</a></li>
+                <li class=""><a href="/home/Signout">Çıkış Yap</a></li>
+            }
+        </ul>
+        <div class="tab-content" style="border: 1px solid #ddd; margin-top: -1px;">
+            @if (authUser == false)
+            {
+                <div id="login" class="tab-pane fade in active">
+                    <h3 class="text-center">GİRİŞ YAP</h3>
+                    @using (Html.BeginForm("Uyelik", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <input type="hidden" name="durum" value="girisyap" />
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.UserName, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="Password">Parola</label>
+                            <div class="col-md-8">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for=""></label>
+                            <div class="col-md-8">
+                                <div class="btn-group">
+                                    <input type="submit" value="Giriş Yap" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div id="register" class="tab-pane fade">
+                    <h3 class="text-center">KAYIT OL</h3>
+                    @using (Html.BeginForm("Uyelik", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <input type="hidden" name="durum" value="kayitol" />
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.UserName, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="Password">Parola</label>
+                            <div class="col-md-8">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for=""></label>
+                            <div class="col-md-8">
+                                <div class="btn-group">
+                                    <input type="submit" value="Kayıt Ol" class="btn btn-success" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <style>
+                    .imgs {
+                        width:100%;
+                        padding: 5px;
+                        height:100%;
+                    }
+                    .imm li {
+                        width: 100px;
+                        height: 100px;
+                        background: white;
+                        overflow: hidden;
+                        border-radius: 100%;
+                        border: 3px solid #ddd;
+                    }
+                </style>
+                <div id="slot" class="tab-pane fade in active" style="padding:65px;position:relative">
+                    <div style="width:100%;float:left;text-align:right;position:absolute;top:10px;right:10px">
+                         @{ 
+                             var altin = Pusula.Data.PusulaDB.Create().Users.Where(a => a.Token == token).FirstOrDefault().Gold;
+                         }
+                        <strong>Altın: <span class="alt">@altin</span></strong> 
+                    </div>
+                    <h3 class="text-center" id="result"></h3>
+                    <ul class="list-inline text-center imm">
+                        <li><img id="firstImg" class="imgs" src="/img/white.jpg" /></li>
+                        <li><img id="secondImg" class="imgs" src="/img/white.jpg" /></li>
+                        <li><img id="thirdImg" class="imgs" src="/img/white.jpg" /></li>
+                    </ul>
+                    <div style="width:100%;float:left;text-align:center">
+                        <div id="spnBtn" class="btn btn-primary" onclick="Slot('@token')">
+                            Spin
+                        </div>
+                    </div>
+                </div>
+             }
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Durum</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top:-22px">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                BAKİYENİZ YETERSİZ.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
